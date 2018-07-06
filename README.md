@@ -27,7 +27,7 @@ Find docker image here: https://hub.docker.com/r/dalijolijo/crypto-lib-windows/
 docker run --rm -td -v "$PWD":/usr/src/ dalijolijo/btx-wallet-windows64
 ```
 
-## Find compilation results
+## Find compilation result data
 
 Jump in the docker container with:
 ```
