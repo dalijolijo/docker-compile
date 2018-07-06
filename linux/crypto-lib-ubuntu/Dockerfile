@@ -41,3 +41,5 @@ RUN add-apt-repository -y ppa:bitcoin/bitcoin && \
     apt-get upgrade -y && \
     apt-get install -y libdb4.8-dev \
                        libdb4.8++-dev
+
+CMD ["/bin/bash"]
