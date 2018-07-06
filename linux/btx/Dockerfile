@@ -19,15 +19,4 @@ RUN echo '*** Cloning and Compiling BitCore Wallet ***' && \
     mkdir /usr/src/result && \
     make install DESTDIR=/usr/src/result
 
-# For RPC Server only?
-#RUN cd && \
-#    cd BitCore/src && \
-#    strip bitcored && \
-#    cp bitcored /usr/local/bin && \
-#    strip bitcore-cli && \
-#    cp bitcore-cli /usr/local/bin && \
-#    chmod 775 /usr/local/bin/bitcore* && \
-#    cd && \
-#    rm -rf BitCore
-
 CMD ["/bin/bash"]
