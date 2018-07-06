@@ -31,6 +31,7 @@ docker run --rm -td -v "$PWD":/usr/src/ dalijolijo/btx-wallet-windows64
 
 Jump in the docker container with:
 ```
-docker run --rm -ti -v "$PWD":/usr/src/ <docker-container> bash
+docker ps
+docker exec -ti <docker-container-name> bash
 ```
 Find compilation files under `/result` and copy needed files to `/usr/src` to make it available outside the docker container.
