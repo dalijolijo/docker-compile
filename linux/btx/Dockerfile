@@ -16,7 +16,7 @@ RUN echo '*** Cloning and Compiling BitCore Wallet ***' && \
     ./autogen.sh && \
     ./configure --disable-hardening --disable-tests LDFLAGS=-static-libstdc++ && \
     make -j 8 && \
-    mkdir /usr/src/result && \
-    make install DESTDIR=/usr/src/result
+    mkdir /result && \
+    make install DESTDIR=/result
 
 CMD ["/bin/bash"]
