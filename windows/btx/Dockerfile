@@ -17,7 +17,7 @@ RUN git clone https://github.com/LIMXTEC/BitCore.git && \
 
 RUN CONFIG_SITE=$PWD/depends/i686-w64-mingw32/share/config.site ./configure --prefix=/ && \
     make && \
-    mkdir /usr/src/result && \
-    make install DESTDIR=/usr/src/result
+    mkdir /result && \
+    make install DESTDIR=/result
 
 CMD ["/usr/local/bin/start.sh"]
