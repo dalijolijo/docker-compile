@@ -20,4 +20,9 @@ RUN CONFIG_SITE=$PWD/depends/i686-w64-mingw32/share/config.site ./configure --pr
     mkdir /usr/src/result && \
     make install DESTDIR=/usr/src/result
 
-CMD ["/bin/bash"]
+COPY start.sh /usr/local/bin/start.sh
+RUN rm -f /var/log/access.log && mkfifo -m 0666 /var/log/access.log && \
+    chmod 755 /usr/local/bin/*
+
+ENV TERM linux
+CMD ["/usr/local/bin/start.sh"]
