@@ -34,4 +34,23 @@ Jump in the docker container with:
 docker ps
 docker exec -ti <docker-container-name> bash
 ```
-Find compilation files under `/result` and copy needed files to `/usr/src` to make it available outside the docker container.
+Find compilation files under `/result` and do the last steps to make it available outside (copy to directory `/usr/src/`) the docker container. 
+
+#### Example:
+Jump into BTX docker container
+```
+docker exec -ti btx-wallet-linux64 bash
+```
+Go to directory to strip all binary files
+```
+cd /result/usr/local/bin/
+strip ./*
+```
+Create compressed tarball with all binary files and copy tarball to the outside available directory
+```
+cd /result/usr/local/
+tar -czvf btx-wallet-linux64.tar.gz bin/
+cp /result/usr/local/btx-wallet-linux64.tar.gz /usr/src
+exit
+```
+
