@@ -1,7 +1,7 @@
 # Linux Comilation for Bitcore (BTX)
 # https://github.com/LIMXTEC/BitCore/blob/0.15/doc/build-unix.md
 # Build with: screen docker build -t linux-64bit .
-# Run the docker container with docker run --rm -it -v "$PWD":/usr/src/ linux-64bit bash
+# Run the docker container with docker run --rm -td -v "$PWD":/usr/src/ linux-64bit
 
 FROM dalijolijo/crypto-lib-ubuntu:14.04
 
