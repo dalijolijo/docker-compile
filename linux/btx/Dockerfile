@@ -23,9 +23,9 @@ RUN curl ${GUI_DOWNLOAD_URL} -O && \
     tar zxf ${VERSION}.tar.gz -C ./${OUTPUT_DIR}
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
+# './autogen.sh' not required when building from tarball
 RUN cd && \
     cd ${OUTPUT_DIR} && \
-    ./autogen.sh && \
     ./configure --disable-hardening --disable-tests LDFLAGS=-static-libstdc++ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
