@@ -10,7 +10,6 @@ WORKDIR /usr/src
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 RUN cd && \
-    echo "Execute a git clone of LIMXTEC/BitCore. Please wait..." && \
     git clone https://github.com/LIMXTEC/BitCore.git && \
     cd BitCore && \
     ./autogen.sh && \
