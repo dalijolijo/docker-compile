@@ -20,7 +20,7 @@ RUN mkdir ${ENTRY} && \
 
 # Download defined version and extract tarball
 RUN curl ${GUI_DOWNLOAD_URL} -O && \
-    tar zxf VERSION.tar.gz -C ./${OUTPUT_DIR}
+    tar zxf ${VERSION}.tar.gz -C ./${OUTPUT_DIR}
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 RUN cd && \
