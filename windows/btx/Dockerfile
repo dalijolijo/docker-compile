@@ -15,7 +15,7 @@ RUN git clone https://github.com/LIMXTEC/BitCore.git && \
     cd .. && \
     ./autogen.sh && \
     CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --prefix=/ && \
-    make && \
+    make -j 8 && \
     mkdir /result && \
     make install DESTDIR=/result
 
