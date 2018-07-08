@@ -30,7 +30,7 @@ RUN cd && \
     cd depends && \
     make HOST=x86_64-w64-mingw32 && \
     cd .. && \
-    CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --disable-hardening --prefix=/ && \
+    CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --disable-hardening --disable-tests --prefix=/ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
 
