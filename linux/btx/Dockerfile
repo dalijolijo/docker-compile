@@ -7,7 +7,7 @@ FROM dalijolijo/crypto-lib-ubuntu:14.04
 MAINTAINER Dalijolijo
 ENV VERSION "0.15.1.0"
 ENV OUTPUT_DIR BitCore
-ENV GUI_DOWNLOAD_URL https://github.com/LIMXTEC/BitCore/releases/download/0.15.1.0/linux.Ubuntu.16.04.LTS-static-libstdc.tar.gz
+ENV GUI_DOWNLOAD_URL https://github.com/LIMXTEC/BitCore/archive/${VERSION}.tar.gz
 
 USER root
 WORKDIR /usr/src
@@ -20,7 +20,7 @@ RUN mkdir ${ENTRY} && \
 
 # Download defined version and extract tarball
 RUN curl ${GUI_DOWNLOAD_URL} -O && \
-    tar zxf *.tar.gz -C ./${OUTPUT_DIR}
+    tar zxf VERSION.tar.gz -C ./${OUTPUT_DIR}
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 RUN cd && \
