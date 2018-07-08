@@ -23,12 +23,12 @@ RUN curl ${GUI_DOWNLOAD_URL} -O && \
     tar zxf ${VERSION}.tar.gz -C ./${OUTPUT_DIR}
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
+# './autogen.sh' not required when building from tarball
 RUN cd && \
     cd ${OUTPUT_DIR} && \
     cd depends && \
     make OS=windows ARCH=amd64 CGO_ENABLED=1 CXX_FOR_TARGET=i686-w64-mingw32-g++ CC_FOR_TARGET=i686-w64-mingw32-gcc && \
     cd .. && \
-    ./autogen.sh && \
     CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --disable-hardening --prefix=/ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
