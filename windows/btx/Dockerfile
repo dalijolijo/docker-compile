@@ -3,7 +3,7 @@
 # Build with: screen docker build -t win-64bit .
 # Run the docker container with docker run --rm -td -v "$PWD":/usr/src/ win-64bit
 
-FROM dalijolijo/crypto-lib-windows:8.1
+FROM dalijolijo/crypto-lib-windows:8.1 #Debian 9
 MAINTAINER Dalijolijo
 ENV VERSION "0.15.1.0"
 ENV OUTPUT_DIR BitCore
@@ -24,10 +24,11 @@ RUN curl ${GUI_DOWNLOAD_URL} -O && \
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 # './autogen.sh' not required when building from tarball
+# (?) make OS=windows ARCH=amd64 CGO_ENABLED=1 CXX_FOR_TARGET=i686-w64-mingw32-g++ CC_FOR_TARGET=i686-w64-mingw32-gcc
 RUN cd && \
     cd ${OUTPUT_DIR} && \
     cd depends && \
-    make OS=windows ARCH=amd64 CGO_ENABLED=1 CXX_FOR_TARGET=i686-w64-mingw32-g++ CC_FOR_TARGET=i686-w64-mingw32-gcc && \
+    make HOST=x86_64-w64-mingw32 && \
     cd .. && \
     CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --disable-hardening --prefix=/ && \
     make -j 2 && \
