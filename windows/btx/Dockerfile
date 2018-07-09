@@ -34,7 +34,7 @@ RUN cd ${SRC} && \
 RUN cd ${SRC} && \
     cd ${OUTPUT_DIR}-${VERSION} && \
     cd depends && \
-    make HOST=x86_64-w64-mingw32 && \
+    make HOST=x86_64-w64-mingw32 make OS=windows ARCH=x86_64 CGO_ENABLED=1 CXX_FOR_TARGET=x86_64-w64-mingw32-g++ CC_FOR_TARGET=x86_64-w64-mingw32-gcc && \
     cd .. && \
     CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --disable-hardening --disable-tests --prefix=/ && \
     make -j 2 && \
