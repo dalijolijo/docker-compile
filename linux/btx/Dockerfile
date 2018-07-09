@@ -11,6 +11,8 @@ ENV DOWNLOAD_URL https://github.com/LIMXTEC/BitCore/archive/${VERSION}.tar.gz
 
 USER root
 WORKDIR /usr/src
+ENV WORKDIR /usr/src
+ENV SRC /usr/src/src
 ENV ENTRY /usr/src/entry
 ENV RESULT /usr/src/result
 
@@ -19,21 +21,31 @@ SHELL ["/bin/bash", "-c"]
 
 # Preparations
 RUN mkdir ${ENTRY} && \
+    mkdir ${SRC} && \
     mkdir ${RESULT}
 
 # Download defined version and extract tarball
-RUN cd && \
+RUN cd ${SRC} && \
     wget ${DOWNLOAD_URL} && \
     tar zxf ${VERSION}.tar.gz
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 # './autogen.sh' not required when building from tarball
-RUN cd && \
+RUN cd ${SRC} && \
     cd ${OUTPUT_DIR}-${VERSION} && \
-    ls && \
-    chmod 755 ./configure* && \
-    ./configure --disable-hardening --disable-tests --with-utils --with-libs --with-daemon LDFLAGS=-static-libstdc++ && \
-    make -j 2 && \
+    ./autogen.sh && \
+    ./configure --disable-hardening --disable-tests --with-libs LDFLAGS=-static-libstdc++ && \
+    make SHARED=0 CC='gcc -static' -j 2 && \
     make install DESTDIR=${RESULT}
-    
+
+# Strip files and create a tarball
+RUN cd ${RESULT}/usr/local && \
+    strip ./bin/* && \
+    strip ./lib/*.a && \
+    strip ./lib/*.so* && \
+    cd ${RESULT}/usr/ && \
+    mv local ${OUTPUT_DIR}-${VERSION} && \
+    tar -czvf ${OUTPUT_DIR}-${VERSION}.tar.gz ${OUTPUT_DIR}-${VERSION} && \
+    cp ${OUTPUT_DIR}-${VERSION}.tar.gz ${WORKDIR}
+
 CMD ["/bin/bash"]
