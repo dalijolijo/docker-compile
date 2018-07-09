@@ -25,7 +25,7 @@ RUN curl ${GUI_DOWNLOAD_URL} -O && \
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 # './autogen.sh' not required when building from tarball
 RUN cd && \
-    cd ${OUTPUT_DIR} && \
+    cd ${OUTPUT_DIR}-${VERSION} && \
     ./configure --disable-hardening --disable-tests --with-utils --with-libs --with-daemon --mandir=/usr/share/man LDFLAGS=-static-libstdc++ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
