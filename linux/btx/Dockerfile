@@ -20,13 +20,13 @@ RUN mkdir ${ENTRY} && \
 
 # Download defined version and extract tarball
 RUN curl ${GUI_DOWNLOAD_URL} -O && \
-    tar zxf ${VERSION}.tar.gz -C ./${OUTPUT_DIR}
+    tar zxf ${VERSION}.tar.gz
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 # './autogen.sh' not required when building from tarball
 RUN cd && \
     cd ${OUTPUT_DIR} && \
-    ./configure --disable-hardening --disable-tests LDFLAGS=-static-libstdc++ && \
+    ./configure --disable-hardening --disable-tests --with-utils --with-libs --with-daemon --mandir=/usr/share/man LDFLAGS=-static-libstdc++ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
 
