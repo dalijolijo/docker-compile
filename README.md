@@ -25,32 +25,25 @@ Find docker image here: https://hub.docker.com/r/dalijolijo/crypto-lib-windows/
 #### Start container
 ```
 docker run --rm -td -v "$PWD":/usr/src/ dalijolijo/btx-wallet-windows64
+docker run --rm --name btx-wallet -td -v "$PWD":/usr/src/entry dalijolijo/btx-wallet-windows64
 ```
 
 ## Find compilation result data
 
 Jump in the docker container with:
 ```
-docker ps
-docker exec -ti <docker-container-name> bash
+docker exec -ti btx-wallet bash
 ```
-Find compilation files under `/result` and do the last steps to make it available outside (copy to directory `/usr/src/`) the docker container. 
+Find compilation files under `/usr/src/` and do the last steps to make it available outside (copy to directory `/usr/src/entry`) the docker container. 
 
 #### Example:
 Jump into BTX docker container
 ```
-docker exec -ti btx-wallet-linux64 bash
+docker exec -ti btx-wallet bash
 ```
-Go to directory to strip all binary files
+Copy tarball to the outside available directory
 ```
-cd /result/usr/local/bin/
-strip ./*
-```
-Create compressed tarball with all binary files and copy tarball to the outside available directory
-```
-cd /result/usr/local/
-tar -czvf btx-wallet-linux64.tar.gz bin/
-cp /result/usr/local/btx-wallet-linux64.tar.gz /usr/src
+mv BitCore-0.15.1.0.tar.gz entry/
 exit
 ```
 
