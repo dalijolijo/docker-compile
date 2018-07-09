@@ -6,28 +6,34 @@
 FROM dalijolijo/crypto-lib-ubuntu:14.04
 MAINTAINER Dalijolijo
 ENV VERSION "0.15.1.0"
-ENV OUTPUT_DIR BitCore
-ENV GUI_DOWNLOAD_URL https://github.com/LIMXTEC/BitCore/archive/${VERSION}.tar.gz
+ENV OUTPUT_DIR "BitCore"
+ENV DOWNLOAD_URL https://github.com/LIMXTEC/BitCore/archive/${VERSION}.tar.gz
 
 USER root
 WORKDIR /usr/src
 ENV ENTRY /usr/src/entry
 ENV RESULT /usr/src/result
 
+# Change sh to bash
+SHELL ["/bin/bash", "-c"]
+
 # Preparations
 RUN mkdir ${ENTRY} && \
     mkdir ${RESULT}
 
 # Download defined version and extract tarball
-RUN curl ${GUI_DOWNLOAD_URL} -O && \
+RUN cd && \
+    wget ${DOWNLOAD_URL} && \
     tar zxf ${VERSION}.tar.gz
 
 # Change 'make -j x' with your individual x CPU cores to use multi compilation
 # './autogen.sh' not required when building from tarball
 RUN cd && \
     cd ${OUTPUT_DIR}-${VERSION} && \
-    ./configure --disable-hardening --disable-tests --with-utils --with-libs --with-daemon --mandir=/usr/share/man LDFLAGS=-static-libstdc++ && \
+    ls && \
+    chmod 755 ./configure* && \
+    ./configure --disable-hardening --disable-tests --with-utils --with-libs --with-daemon LDFLAGS=-static-libstdc++ && \
     make -j 2 && \
     make install DESTDIR=${RESULT}
-
+    
 CMD ["/bin/bash"]
