@@ -3,7 +3,7 @@
 # Build with: screen docker build -t win-64bit .
 # Run the docker container with docker run --rm -td -v "$PWD":/usr/src/ win-64bit
 
-FROM dalijolijo/crypto-lib-windows:8.1 #Debian 9
+FROM dalijolijo/crypto-lib-windows:8.1
 MAINTAINER Dalijolijo
 ENV VERSION "0.15.1.0"
 ENV OUTPUT_DIR BitCore
