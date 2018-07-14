@@ -25,8 +25,8 @@ RUN apt-get update && \
                         sudo \
                         supervisor \
                         vim \
-                        
                         wget
+                        
 RUN apt-get install -y libprotobuf-dev \
                        libqrencode-dev \
                        libqt5core5a \
@@ -35,11 +35,11 @@ RUN apt-get install -y libprotobuf-dev \
                        protobuf-compiler \
                        qttools5-dev \
                        qttools5-dev-tools
-                       
-RUN add-apt-repository -y ppa:bitcoin/bitcoin && \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y libdb4.8-dev \
-                       libdb4.8++-dev
+
+RUN sudo add-apt-repository -y ppa:bitcoin/bitcoin
+RUN sudo apt-get update && \ 
+    sudo apt-get -y upgrade
+RUN apt-get install -y libdb4.8-dev \
+                        libdb4.8++-dev
 
 CMD ["/bin/bash"]
